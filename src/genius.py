@@ -1,5 +1,6 @@
 import lyricsgenius
-from src.to_file import set_content
+from src.file import set_content
+from src.concat import save_all_as_one_file
 from src.config import config
 
 
@@ -11,19 +12,27 @@ genius.excluded_terms = ["(Remix)", "(Live)"]
 
 
 def search(artist):
+    artists = set()
+
     results = genius.search_artist(
         artist,
         max_songs=config.max_songs,
-        sort="title",
     )
 
     for song in results.songs:
-        file_path = "{}/{}/{}/{}.txt".format(
-            config.save_path,
+        if not song.album:  # ignore ep/singles
+            continue
+
+        file_path = "{}/{}/{}.txt".format(
             song.artist,
             song.album,
             song.title,
         )
-        set_content(file_path, contents=song.lyrics)
+
+        set_content(file_path, content=song.lyrics)
+        artists.add(song.artist)
+
+    for artist in artists:
+        save_all_as_one_file(artist)
 
     return True

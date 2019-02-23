@@ -14,6 +14,15 @@ genius.excluded_terms = [
     "(Akustisk)",
     "(Instrumental)",
     "(Radio Edit)",
+    "(Singelversion)",
+    "(Filtenmix)",
+    "(Interlude)",
+    "(Freestyle)",
+    "(Grammys)",
+    "(Outro)",
+    "(Intro)",
+    "(Music Video)",
+    "(Clean)",
 ]
 
 
